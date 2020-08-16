@@ -6,26 +6,12 @@ echo '$HOSTNAME=' $HOSTANAME
 echo '$LETSENCRPT=' $LETSENCRYPT
 echo '$RSPAMD=' $RSPAMD
 echo '$GOOGLEPORT=' $GOOGLEPORT
-echo '$TIMEZONE=' $TIMEZONE
 echo
 
 [ -z "$REDIS" ] && echo '$REDIS is not set, needed for auth' && exit 1
 
-if [ -n "$TIMEZONE" ]
-then
-  echo "Waiting for DNS"
-  ping -c1 -W60 google.com || ping -c1 -W60 www.google.com || ping -c1 -W60 google-public-dns-b.google.com
-  apk add --no-cache tzdata
-  if [ -f /usr/share/zoneinfo/"$TIMEZONE" ]
-  then
-    echo "Setting timezone to $TIMEZONE"
-    cp /usr/share/zoneinfo/"$TIMEZONE" /etc/localtime
-    echo "$TIMEZONE" > /etc/timezone
-  else
-    echo "$TIMEZONE does not exist"
-  fi
-  apk del tzdata
-fi
+NME="dovecot-xapian"
+set-timezone.sh "$NME"
 
 cd /etc/dovecot
 

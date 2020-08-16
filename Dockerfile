@@ -18,7 +18,7 @@ WORKDIR /etc/dovecot
 COPY conf ./
 
 WORKDIR /usr/local/bin
-COPY entrypoint.sh post-run.sh ./
+COPY travis-helpers/set-timezone.sh entrypoint.sh post-run.sh ./
 ENTRYPOINT [ "entrypoint.sh" ]
 
 EXPOSE 993 995 2221
