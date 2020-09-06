@@ -1,3 +1,3 @@
 require ["fileinto"];
-fileinto "Fetch";
+#fileinto "Fetch";
 keep;

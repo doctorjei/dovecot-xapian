@@ -3,10 +3,10 @@ LABEL maintainer "Duncan Bellamy <dunk@denkimushi.com>"
 
 RUN sed -i -e 's/v[[:digit:]]\..*\//edge\//g' /etc/apk/repositories \
 && apk add --no-cache dovecot-lmtpd dovecot-pop3d dovecot-pigeonhole-plugin \
- rspamd-client dropbear doas \
+ rspamd-client dropbear dropbear-ssh doas \
 && apk add dovecot-fts-xapian --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ \
 && rm -rf /etc/dovecot/conf.d/* \
-&& mkdir /var/vmail \
+&& mkdir /var/vmail /etc/dropbear \
 && addgroup -S -g 5000 vmail && adduser -S -u 5000 -h /var/vmail/mailboxes --gecos "virtual mailbox user" --ingroup vmail vmail \
 && adduser -D -h /home/doveback doveback \
 && echo "doveback:$(openssl rand -base64 32)" | chpasswd \
