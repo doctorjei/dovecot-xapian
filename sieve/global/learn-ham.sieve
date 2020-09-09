@@ -8,4 +8,4 @@ if string "${mailbox}" "Trash" {
   stop;
 }
 
-pipe :copy "call_rspamc.sh" [ "learn_ham" ];
+pipe :copy "rspamc" [ "-h", "rspamd", "learn_ham" ];
