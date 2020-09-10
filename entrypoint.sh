@@ -47,12 +47,20 @@ fi
 
 if [ -n "$GOGLEPORT" ]
 then
-  echo "service pop3d {" >> conf.d/10-auto.conf
+   echo "service pop3d {" >> conf.d/10-auto.conf
    echo "inet_listener pop3s-google {" >> conf.d/10-auto.conf
    echo " port = 2221" >> conf.d/10-auto.conf
    echo " ssl = yes" >> conf.d/10-auto.conf
    echo " }" >> conf.d/10-auto.conf
    echo "}" >> conf.d/10-auto.conf
+fi
+
+if [ -n "$RSPAMD" ]
+then
+   for f in spam ham; do
+   sed -r "s+(\"-h\",)(.*) (\"learn.*)+\1 \"$RSPAMD\", \3+" -i \
+"/var/vmail/sieve/global/learn-$f.sieve"
+  done
 fi
 
 openssl dhparam 2048 > /etc/ssl/dh2048.pem
