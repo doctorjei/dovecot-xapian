@@ -58,7 +58,7 @@ fi
 if [ -n "$RSPAMD" ]
 then
    for f in spam ham; do
-   sed -r "s+(\"-h\",)(.*) (\"learn.*)+\1 \"$RSPAMD\", \3+" -i \
+   sed -r "s+(\"-h\",).* (\"learn.*)+\1 \"$RSPAMD\", \2+" -i \
 "/var/vmail/sieve/global/learn-$f.sieve"
   done
 fi
