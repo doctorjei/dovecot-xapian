@@ -6,7 +6,7 @@ Dockerfile to run [dovecot](https://www.dovecot.org) as a docker container, redi
 [![](https://images.microbadger.com/badges/version/a16bitsysop/docevot-xapian.svg)](https://microbadger.com/images/a16bitsysop/dovecot-xapian "Get your own version badge on microbadger.com")
 [![](https://images.microbadger.com/badges/commit/a16bitsysop/dovecot-xapian.svg)](https://microbadger.com/images/a16bitsysop/dovecot-xapian "Get your own commit badge on microbadger.com")
 
-It uses network lmtp and auth, instead of sockets as running inside docker and reduces dependencies.
+It uses inet lmtp with ssl and auth, instead of sockets as running inside docker network and reduces dependencies.
 
 fts-xapian is used for full text search as it will replace fts-squat.
 
