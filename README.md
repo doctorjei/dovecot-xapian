@@ -32,7 +32,7 @@ Github Repository: [https://github.com/a16bitsysop/docker-dovecot-xapian](https:
 | HOSTNAME    | Hostname for dovecot to use                                               | none                  |
 | LETSENCRYPT | Folder name for ssl certs (/etc/letsencrypt/live/$LETSENCRYPT/cert.pem)   | none                  |
 | PLAINIMAP   | Listen on port 143 for imap without ssl (for testing)                     | do not use plain imap |
-| GOOGLEPORT  | Listen for pop3 on 2221                                                   | do not use this port  |
+| GOOGLEPORT  | Listen for pop3s on 2221                                                  | do not use this port  |
 | RSPAMD      | Name/container name or IP of rspamd, for learn ham/spam                   | none                  |
 | TIMEZONE    | Timezone to use inside the container, eg Europe/London                    | unset                 |
 
