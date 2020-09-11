@@ -18,7 +18,7 @@ The following redis keys need setting for each user
 | userdb/USERNAME              | Username exists check, and json string of userdb fields                             | redis-cli set userdb/user@example.com {}                                            |
 | user/USERNAME/quota/messages | Quota limit in number of messages, 0 means unlimited (90-quota.conf and quota.uri). | redis-cli set user/user@example.com/quota/messages 0                                |
 | user/USERNAME/quota/storage  | Quota limit in kilobytes, 0 means unlimited (90-quota.conf and quota.uri).          | redis-cli set user/user@example.com/quota/storage 0                                 |
-| passdb/USERNAME              | Json user password hash string, hash can be copied from shadow                      | redis-cli set passdb/user@example.com {\\\"password\\\":\\\"{CRYPT}$6$MOREPASSWORDHASH\\\"}"|
+| passdb/USERNAME              | Json user password hash string, hash can be copied from shadow                      | redis-cli set passdb/user@example.com {\\"password\\":\\"{CRYPT}$6$MOREPASSWORDHASH\\"}|
 
 ## Github
 Github Repository: [https://github.com/a16bitsysop/docker-rspamd](https://github.com/a16bitsysop/docker-rspamd)
