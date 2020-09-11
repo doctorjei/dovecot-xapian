@@ -27,7 +27,7 @@ Github Repository: [https://github.com/a16bitsysop/docker-rspamd](https://github
 
 | NAME        | Description                                                               | Default               |
 | ----------- | ------------------------------------------------------------------------- | --------------------- | 
-| REDIS       | Name/container name or IP of the redis server                             | none (No redis)       |
+| REDIS       | Name/container name or IP of the redis server                             | none                  |
 | HOSTNAME    | Hostname for dovecot to use                                               | none                  |
 | LETSENCRYPT | Folder name for ssl certs (/etc/letsencrypt/live/$LETSENCRYPT/cert.pem)   | none                  |
 | PLAINIMAP   | Listen on port 143 for imap without ssl (for testing)                     | do not use plain imap |
