@@ -1,4 +1,4 @@
-# docker-rspamd
+# docker-dovecot-xapian
 Dockerfile to run [dovecot](https://www.dovecot.org) as a docker container, redis is used instead of the usual mariaDB for user data lookups to reduce footprint.
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/a16bitsysop/dovecot-xapian.svg?style=flat-square)](https://hub.docker.com/r/a16bitsysop/dovecot-xapian/)
