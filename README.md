@@ -19,13 +19,13 @@ Mailboxes are stored in dovecots sdbox format at /var/vmail/mailboxes, so persis
 * Create a user for the reverse tunnel: ```sudo useradd SSHTUNUSER -m -s /bin/true```
 * Set a password: ```sudo passwd SSHTUNUSER```
 * Edit /etc/ssh/sshd_config to disable login and allow tunnel:
-```Match User SSHTUNUSER
+````Match User SSHTUNUSER
   PermitOpen 127.0.0.1:2222
   X11Forwarding no
   AllowAgentForwarding no
   ForceCommand /bin/false
   StrictHostKeyChecking no
-  UserKnownHostsFile /dev/null```
+  UserKnownHostsFile /dev/null````
 * Reload ssh: ```sudo service sshd reload```
 
 ### Redis
