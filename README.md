@@ -67,7 +67,7 @@ The following redis keys need setting for each user
 
 | KEY                          | Description                                                                         | Example                                                                             |
 | ---------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| userdb/user@example.com      | Username exists check, and json string of userdb fields                             | redis-cli set userdb/user@example.com {}\ redis-cli set "userdb/USER@EXAMPLE" {\"quota_rule\":\"*:storage=0\"}                                           |
+| userdb/user@example.com      | Username exists check, and json string of userdb fields                             | redis-cli set userdb/user@example.com {}<br> redis-cli set "userdb/user@example" {\"quota_rule\":\"*:storage=0\"}                                           |
 | passdb/user@example.com      | Json user password hash string, hash can be copied from shadow                      | redis-cli set passdb/user@example.com {\\"password\\":\\"{CRYPT}$6$MOREPASSWORDHASH\\"}|
 
 ## Github
