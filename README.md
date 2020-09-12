@@ -67,9 +67,8 @@ The following redis keys need setting for each user
 
 | KEY                          | Description                                                                         | Example                                                                             |
 | ---------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| userdb/USERNAME              | Username exists check, and json string of userdb fields                             | redis-cli set userdb/user@example.com {}                                            |
-| user/USERNAME/quota/storage  | Quota limit in kilobytes, 0 means unlimited (90-quota.conf and quota.uri).          | redis-cli set user/user@example.com/quota/storage 0                                 |
-| passdb/USERNAME              | Json user password hash string, hash can be copied from shadow                      | redis-cli set passdb/user@example.com {\\"password\\":\\"{CRYPT}$6$MOREPASSWORDHASH\\"}|
+| userdb/user@example.com      | Username exists check, and json string of userdb fields                             | redis-cli set userdb/user@example.com {}\ redis-cli set "userdb/USER@EXAMPLE" {\"quota_rule\":\"*:storage=0\"}                                           |
+| passdb/user@example.com      | Json user password hash string, hash can be copied from shadow                      | redis-cli set passdb/user@example.com {\\"password\\":\\"{CRYPT}$6$MOREPASSWORDHASH\\"}|
 
 ## Github
 Github Repository: [https://github.com/a16bitsysop/docker-dovecot-xapian](https://github.com/a16bitsysop/docker-dovecot-xapian)
