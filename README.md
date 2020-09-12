@@ -10,9 +10,9 @@ It uses inet lmtp with ssl and auth, instead of sockets as running inside docker
 
 fts-xapian is used for full text search as it will replace fts-squat.
 
-The default storage quota is 20GB per user, quota prefix is "user", so other quota limit names can be used as well. eg: user/USERNAME/quota/messages
+The default storage quota is 20GB per user, quota settings can be changed with userdb extra fields see [redis keys](#redis-keys).
 
-Mailboxes are stored in dovecots sdbox format at /var/vmail/mailboxes, so persistent storage should be mounted there to keep the email.
+Mailboxes are stored in dovecot's sdbox format at /var/vmail/mailboxes, so persistent storage should be mounted there to keep the email.
 
 ## To import email into docker-dovecot-xapian
 ### On old dovecot machine
@@ -67,7 +67,7 @@ The following redis keys need setting for each user
 
 | KEY                          | Description                                                                         | Example                                                                             |
 | ---------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| userdb/user@example.com      | Username exists check, and json string of userdb fields                             | redis-cli set userdb/user@example.com {}<br> redis-cli set "userdb/user@example" {\"quota_rule\":\"*:storage=0\"}                                           |
+| userdb/user@example.com      | Username exists check, and json string of userdb fields                             | redis-cli set userdb/user@example.com {}<br>or unlimited storage<br> redis-cli set "userdb/user@example" {\"quota_rule\":\"*:storage=0\"}                                           |
 | passdb/user@example.com      | Json user password hash string, hash can be copied from shadow                      | redis-cli set passdb/user@example.com {\\"password\\":\\"{CRYPT}$6$MOREPASSWORDHASH\\"}|
 
 ## Github
