@@ -12,6 +12,38 @@ fts-xapian is used for full text search as it will replace fts-squat.
 
 The default storage quota is 20GB per user, quota prefix is "user", so other quota limit names can be used as well. eg: user/USERNAME/quota/messages
 
+Mailboxes are stored in dovecots sdbox format at /var/vmail/mailboxes, so persistent storage should be mounted there to keep the email.
+
+## To import email into docker-dovecot-xapian
+### On old dovecot machine
+* Create a user for the reverse tunnel: sudo useradd SSHTUNUSER -m -s /bin/true
+* Set a password: sudo passwd SSHTUNUSER
+* Edit /etc/ssh/sshd_config to disable login and allow tunnel:
+Match User SSHTUNUSER
+  PermitOpen 127.0.0.1:2222
+  X11Forwarding no
+  AllowAgentForwarding no
+  ForceCommand /bin/false
+  StrictHostKeyChecking no
+  UserKnownHostsFile /dev/null
+* Reload ssh: sudo service sshd reload
+
+### Redis
+* First [create redis keys][#redis-keys) in the redis server container for each user
+
+### Inside docker-dovecot-xapian
+* Change password for doveback user: passwd doveback
+* Start dropbear ssh server in background: dropbear -R -E -p 127.0.0.1:22
+* Start reverse ssh tunnel to old dovecot machine: ssh -R 2222:localhost:22 -N SSHTUNUSER@OLDDOVCOTIP
+
+### On old dovecot machine
+* Sync mail into docker-dovecot-xapian with the tunnel:
+sudo doveadm backup -u USERNAME@THISSERVER ssh doveback@127.0.0.1 -p 2222 -o "UserKnownHostsFile /dev/null" doas doveadm dsync-server -u REMOTEUSER@REMOTESERVER
+* doveadm backup is one way doveadm sync is two way
+
+### Inside docker-dovecot-xapian
+* List processes: ps -A
+* kill and dropbear processes: kill -SIGTERM DROPBEARPID
 ## Redis Keys
 The following redis keys need setting for each user
 
