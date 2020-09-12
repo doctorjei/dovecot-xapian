@@ -43,7 +43,17 @@ Mailboxes are stored in dovecots sdbox format at /var/vmail/mailboxes, so persis
 ```sudo doveadm backup -u USERNAME@THISSERVER ssh doveback@127.0.0.1 -p 2222 -o "UserKnownHostsFile /dev/null" doas doveadm dsync-server -u REMOTEUSER@REMOTESERVER```
 * doveadm backup is one way doveadm sync is two way
 * USERNAME@THISSERVER and REMOTEUSER@REMOTESERVER would be the same unless THISSERVER does not use virtual mailboxes
-
+* Repeat for each mailbox that is being migrated or use a script like:
+```
+#!/bin/sh
+allusers="user1@ex.com user2@ex.com user3@ex.com user4@ex.com"
+sshcmd="ssh doveback@127.0.0.1 -p 2222 -o \"UserKnownHostsFile /dev/null\""
+echo "Syncing Mail..."
+for usname in ${allusers}; do
+  echo "Syncing $usname"
+  sudo doveadm backup -u $usname $sshcmd doas doveadm dsync-server -u $usname
+done
+```
 ### Inside docker-dovecot-xapian
 * List processes: ```ps -A```
 * kill ssh and dropbear processes: 
