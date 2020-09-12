@@ -18,10 +18,9 @@ cd /etc/dovecot
 if [ -n "$REDIS" ]
 then
   REDISIP=$(ping -c1 $REDIS | head -n1 | cut -f2 -d'(' | cut -f1 -d')')
-# sed  -i "1i uri = redis:host=$REDISIP" dovecot-dict-auth.conf
   echo "uri = redis:host=$REDISIP" > dict.uri
   echo "plugin {
-  quota = dict:User quota::redis:host=$REDISIP:prefix=user/
+  quota_clone_dict = redis:host=$REDISIP
 }
 " > conf.d/quota.uri
 fi
@@ -63,7 +62,7 @@ then
   done
 fi
 
-openssl dhparam 2048 > /etc/ssl/dh2048.pem
+openssl dhparam 1024 > /etc/ssl/dh2048.pem
 
 post-run.sh &
 
