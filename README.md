@@ -42,6 +42,7 @@ Mailboxes are stored in dovecots sdbox format at /var/vmail/mailboxes, so persis
 * Sync mail into docker-dovecot-xapian with the tunnel:
 ```sudo doveadm backup -u USERNAME@THISSERVER ssh doveback@127.0.0.1 -p 2222 -o "UserKnownHostsFile /dev/null" doas doveadm dsync-server -u REMOTEUSER@REMOTESERVER```
 * doveadm backup is one way doveadm sync is two way
+* USERNAME@THISSERVER and REMOTEUSER@REMOTESERVER would be the same unless THISSERVER does not use virtual mailboxes
 
 ### Inside docker-dovecot-xapian
 * List processes: ```ps -A```
