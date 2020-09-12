@@ -19,10 +19,7 @@ if [ -n "$REDIS" ]
 then
   REDISIP=$(ping -c1 $REDIS | head -n1 | cut -f2 -d'(' | cut -f1 -d')')
   echo "uri = redis:host=$REDISIP" > dict.uri
-  echo "plugin {
-  quota_clone_dict = redis:host=$REDISIP
-}
-" > conf.d/quota.uri
+  echo -e "plugin {\n  quota_clone_dict = redis:host=$REDISIP\n}" > conf.d/quota.uri
 fi
 
 echo "#10-auto.conf from environment variables" > conf.d/10-auto.conf
@@ -41,6 +38,7 @@ then
 echo "service imap {" >> conf.d/10-auto.conf
 echo "  inet_listener imap-login {" >> conf.d/10-auto.conf
 echo "  }" >> conf.d/10-auto.conf
+echo "user = vmail" >> conf.d/10-auto.conf
 echo "}" >> conf.d/10-auto.conf
 fi
 
@@ -51,6 +49,7 @@ then
    echo " port = 2221" >> conf.d/10-auto.conf
    echo " ssl = yes" >> conf.d/10-auto.conf
    echo " }" >> conf.d/10-auto.conf
+   echo "user = vmail" >> conf.d/10-auto.conf
    echo "}" >> conf.d/10-auto.conf
 fi
 
