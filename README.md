@@ -71,6 +71,7 @@ The following redis keys need setting for each user
 | ---------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
 | userdb/user@example.com      | Username exists check, and json string of userdb fields                             | redis-cli set userdb/user@example.com {}<br>or unlimited storage<br> redis-cli set "userdb/user@example" {\\"quota_rule\\":\\"*:storage=0\\"}                                           |
 | passdb/user@example.com      | Json user password hash string, hash can be copied from shadow                      | redis-cli set passdb/user@example.com {\\"password\\":\\"{CRYPT}$6$MOREPASSWORDHASH\\"}|
+| VALI:user@example.com        | Postfix virtual mailbox alias key, used to check existence and create aliases | redis-cli set "VALI:user@example.com" user@example.com |
 
 ## Github
 Github Repository: [https://github.com/a16bitsysop/docker-dovecot-xapian](https://github.com/a16bitsysop/docker-dovecot-xapian)
