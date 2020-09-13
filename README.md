@@ -32,7 +32,7 @@ Mailboxes are stored in dovecot's sdbox format at /var/vmail/mailboxes, so persi
 
 ### Redis
 * First [create redis keys](#redis-keys) in the redis server container for each user
-* To create a new password inside docker-dovecot-xapian run ```doveadm pw```
+* To create a new password inside docker-dovecot-xapian run ```doveadm pw```, or a better scheme ```doveadm pw -s ARGON2ID```
 * Copy the password hash and create key in redis container with it, any \'$\' in the password hash needs escaping with \ as well.
 
 ### Inside docker-dovecot-xapian
