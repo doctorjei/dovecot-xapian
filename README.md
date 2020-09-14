@@ -25,8 +25,6 @@ Mailboxes are stored in dovecot's sdbox format at /var/vmail/mailboxes, so persi
   X11Forwarding no
   AllowAgentForwarding no
   ForceCommand /bin/false
-  StrictHostKeyChecking no
-  UserKnownHostsFile /dev/null
 ```
 * Reload ssh: ```sudo service sshd reload```
 
