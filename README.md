@@ -6,7 +6,7 @@ Dockerfile to run [dovecot](https://www.dovecot.org) as a docker container, redi
 [![](https://images.microbadger.com/badges/version/a16bitsysop/docevot-xapian.svg)](https://microbadger.com/images/a16bitsysop/dovecot-xapian "Get your own version badge on microbadger.com")
 [![](https://images.microbadger.com/badges/commit/a16bitsysop/dovecot-xapian.svg)](https://microbadger.com/images/a16bitsysop/dovecot-xapian "Get your own commit badge on microbadger.com")
 
-It uses inet lmtp with ssl and auth, instead of sockets as running inside docker network and reduces dependencies.
+It uses inet lmtp with ssl and auth, instead of sockets as running inside docker network so this dependencies.  For postfix to use lmtp with ssl it needs ```lmtp_use_tls = yes``` set in main.cf
 
 fts-xapian is used for full text search as it will replace fts-squat.
 
@@ -41,8 +41,8 @@ Mailboxes are stored in dovecot's sdbox format at /var/vmail/mailboxes, so persi
 ### On old dovecot machine
 * Sync mail into docker-dovecot-xapian with the tunnel:
 ```sudo doveadm backup -u USERNAME@THISSERVER ssh doveback@127.0.0.1 -p 2222 -o "UserKnownHostsFile /dev/null" doas doveadm dsync-server -u REMOTEUSER@REMOTESERVER```
-* doveadm backup is one way doveadm sync is two way
-* USERNAME@THISSERVER and REMOTEUSER@REMOTESERVER would be the same unless THISSERVER does not use virtual mailboxes
+* ```doveadm backup``` is one way ```doveadm sync``` is two way
+* USERNAME@THISSERVER and REMOTEUSER@REMOTESERVER would normally be the same unless THISSERVER does not use virtual mailboxes
 * Repeat for each mailbox that is being migrated or use a script like:
 ```
 #!/bin/sh
@@ -71,6 +71,9 @@ The following redis keys need setting for each user
 | passdb/user@example.com      | Json user password hash string, hash can be copied from shadow                      | redis-cli set passdb/user@example.com {\\"password\\":\\"{CRYPT}$6$MOREPASSWORDHASH\\"}|
 | VALI:user@example.com        | Postfix virtual mailbox alias key (If using postfix redis lookups), used to check existence and create aliases | redis-cli set "VALI:user@example.com" user@example.com |
 
+## SSL Certificates
+The path for certificates to be mounted in is: ```/etc/letsencrypt/live/$LETSENCRYPT```, usualy mounted from a letsencrpyt/dnsrobocert container.
+
 ## Github
 Github Repository: [https://github.com/a16bitsysop/docker-dovecot-xapian](https://github.com/a16bitsysop/docker-dovecot-xapian)
 
@@ -87,7 +90,7 @@ Github Repository: [https://github.com/a16bitsysop/docker-dovecot-xapian](https:
 | TIMEZONE    | Timezone to use inside the container, eg Europe/London                    | unset                 |
 
 ## Examples
-To run connecting to container network exposing ports (accessible from host network), and docker managed volumes
+To run connecting to container network exposing ports (accessible from host network), and docker managed volumes.  With ssl certificates mounted into /etc/letsencrypt
 ```
-#docker container run -p 993:993 -p 995:995 --name dovecot --restart=unless-stopped --mount source=dovecot-var,target=/var/lib/dovecot --mount source=dovecot-mail,target=/var/vmail/mailboxes -d a16bitsysop/dovecot-xapian
+#docker container run -p 993:993 -p 995:995 --name dovecot --restart=unless-stopped --mount source=dovecot-var,target=/var/lib/dovecot --mount source=dovecot-mail,target=/var/vmail/mailboxes --mount source=ssl-certs,target=/etc/letsencrypt -d a16bitsysop/dovecot-xapian
 ```
