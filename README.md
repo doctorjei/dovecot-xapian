@@ -72,7 +72,7 @@ The following redis keys need setting for each user
 | VALI:user@example.com        | Postfix virtual mailbox alias key (If using postfix redis lookups), used to check existence and create aliases | redis-cli set "VALI:user@example.com" user@example.com |
 
 ## SSL Certificates
-The path for certificates to be mounted in is: ```/etc/letsencrypt/live/$LETSENCRYPT```, usualy mounted from a letsencrpyt/dnsrobocert container.
+The path for certificates to be mounted in is: ```/etc/letsencrypt```, the actual certificates should then be in the directory ```live/$LETSENCRYPT```.  This is usually mounted from a letsencrpyt/dnsrobocert container.
 
 ## Github
 Github Repository: [https://github.com/a16bitsysop/docker-dovecot-xapian](https://github.com/a16bitsysop/docker-dovecot-xapian)
