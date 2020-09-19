@@ -1,6 +1,5 @@
 #!/bin/sh
 #display environment variables passed with --env
-echo "Starting dovecot at $(date +'%x %X')"
 echo '$REDIS=' $REDIS
 echo '$HOSTNAME=' $HOSTANAME
 echo '$LETSENCRPT=' $LETSENCRYPT
