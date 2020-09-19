@@ -33,18 +33,9 @@ then
   fi
 fi
 
-if [ -n "$PLAINIMAP" ]
+if [ -n "$GOOGLEPORT" ]
 then
-echo "service imap {" >> conf.d/10-auto.conf
-echo "  inet_listener imap-login {" >> conf.d/10-auto.conf
-echo "  }" >> conf.d/10-auto.conf
-echo "user = vmail" >> conf.d/10-auto.conf
-echo "}" >> conf.d/10-auto.conf
-fi
-
-if [ -n "$GOGLEPORT" ]
-then
-   echo "service pop3d {" >> conf.d/10-auto.conf
+   echo "service pop3-login {" >> conf.d/10-auto.conf
    echo "inet_listener pop3s-google {" >> conf.d/10-auto.conf
    echo " port = 2221" >> conf.d/10-auto.conf
    echo " ssl = yes" >> conf.d/10-auto.conf
