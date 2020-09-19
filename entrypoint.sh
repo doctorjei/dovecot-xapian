@@ -5,7 +5,7 @@ echo '$REDIS=' $REDIS
 echo '$HOSTNAME=' $HOSTANAME
 echo '$LETSENCRPT=' $LETSENCRYPT
 echo '$RSPAMD=' $RSPAMD
-echo '$GOOGLEPORT=' $GOOGLEPORT
+echo '$POP3PORT=' $POP3PORT
 echo
 
 [ -z "$REDIS" ] && echo '$REDIS is not set, needed for auth' && exit 1
@@ -33,10 +33,10 @@ then
   fi
 fi
 
-if [ -n "$GOOGLEPORT" ]
+if [ -n "$POP3PORT" ]
 then
-   echo -e "service pop3-login {\n inet_listener pop3s-google {\n port = 2221\n ssl = yes \n }\n}" >> conf.d/10-auto.conf
-   echo -e "service pop3s-google {\n  user = vmail\n}" >> conf.d/10-auto.conf
+   echo -e "service pop3-login {\n inet_listener pop3s-hiport {\n port = $POP3PORT\n ssl = yes \n }\n}" >> conf.d/10-auto.conf
+   echo -e "service pop3s-hiport {\n  user = vmail\n}" >> conf.d/10-auto.conf
 fi
 
 if [ -n "$RSPAMD" ]

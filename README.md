@@ -77,6 +77,9 @@ The path for certificates to be mounted in is: ```/etc/letsencrypt```, the actua
 ## Security
 Dovecot has its own rate limiting for failed logins, for extra security with firewalling use syslog-ng on the docker host and set the docker logging to journald so logs can be parsed by a service like fail2ban 
 
+## Overriding configuration
+Mount the file ```override.conf``` into /etc/dovecot/, this is read last to override any settings.
+
 ## Github
 Github Repository: [https://github.com/a16bitsysop/docker-dovecot-xapian](https://github.com/a16bitsysop/docker-dovecot-xapian)
 
@@ -87,7 +90,7 @@ Github Repository: [https://github.com/a16bitsysop/docker-dovecot-xapian](https:
 | REDIS       | Name/container name or IP of the redis server                             | none                  |
 | HOSTNAME    | Hostname for dovecot to use                                               | none                  |
 | LETSENCRYPT | Folder name for ssl certs (/etc/letsencrypt/live/$LETSENCRYPT/cert.pem)   | none                  |
-| GOOGLEPORT  | Listen for pop3s on 2221                                                  | do not use this port  |
+| POP3PORT    | Listen for pop3s on POP3PORT                                                  | do not use this port  |
 | RSPAMD      | Name/container name or IP of rspamd, for learn ham/spam                   | none                  |
 | TIMEZONE    | Timezone to use inside the container, eg Europe/London                    | unset                 |
 
