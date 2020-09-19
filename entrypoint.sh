@@ -35,13 +35,8 @@ fi
 
 if [ -n "$GOOGLEPORT" ]
 then
-   echo "service pop3-login {" >> conf.d/10-auto.conf
-   echo "inet_listener pop3s-google {" >> conf.d/10-auto.conf
-   echo " port = 2221" >> conf.d/10-auto.conf
-   echo " ssl = yes" >> conf.d/10-auto.conf
-   echo " }" >> conf.d/10-auto.conf
-   echo "user = vmail" >> conf.d/10-auto.conf
-   echo "}" >> conf.d/10-auto.conf
+   echo -e "service pop3-login {\n inet_listener pop3s-google {\n port = 2221\n ssl = yes \n }\n}" >> conf.d/10-auto.conf
+   echo -e "service pop3s-google {\n  user = vmail\n}" >> conf.d/10-auto.conf
 fi
 
 if [ -n "$RSPAMD" ]
