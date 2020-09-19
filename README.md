@@ -74,6 +74,9 @@ The following redis keys need setting for each user
 ## SSL Certificates
 The path for certificates to be mounted in is: ```/etc/letsencrypt```, the actual certificates should then be in the directory ```live/$LETSENCRYPT```.  This is usually mounted from a letsencrpyt/dnsrobocert container.
 
+## Security
+Dovecot has its own rate limiting for failed logins, for extra security with firewalling use syslog-ng on the docker host and set the docker logging to journald so logs can be parsed by a service like fail2ban 
+
 ## Github
 Github Repository: [https://github.com/a16bitsysop/docker-dovecot-xapian](https://github.com/a16bitsysop/docker-dovecot-xapian)
 
