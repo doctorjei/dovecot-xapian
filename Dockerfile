@@ -7,10 +7,9 @@ RUN mkdir /var/vmail && addgroup -S -g 5000 vmail \
 COPY --chown=vmail:vmail sieve /var/vmail/sieve
 
 RUN sed -i -e 's/v[[:digit:]]\..*\//edge\//g' /etc/apk/repositories \
-&& apk add --no-cache dovecot-lmtpd dovecot-pop3d dovecot-pigeonhole-plugin \
+&& apk add --no-cache dovecot-lmtpd dovecot-pop3d dovecot-pigeonhole-plugin dovecot-fts-xapian \
  rspamd-client dropbear dropbear-ssh doas \
 &&  mv /usr/bin/rspamc /var/vmail/sieve/bin/ \
-&& apk add dovecot-fts-xapian --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ \
 && rm -rf /etc/dovecot/conf.d/* \
 && mkdir /etc/dropbear \
 && adduser -D -h /home/doveback doveback \
