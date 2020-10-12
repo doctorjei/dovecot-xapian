@@ -5,6 +5,7 @@ Dockerfile to run [dovecot](https://www.dovecot.org) as a docker container, redi
 [![Docker Stars](https://img.shields.io/docker/stars/a16bitsysop/dovecot-xapian.svg?style=flat-square)](https://hub.docker.com/r/a16bitsysop/dovecot-xapian/)
 [![Version](https://images.microbadger.com/badges/version/a16bitsysop/docevot-xapian.svg)](https://microbadger.com/images/a16bitsysop/dovecot-xapian "Get your own version badge on microbadger.com")
 [![Commit](https://images.microbadger.com/badges/commit/a16bitsysop/dovecot-xapian.svg)](https://microbadger.com/images/a16bitsysop/dovecot-xapian "Get your own commit badge on microbadger.com")
+[![GitHub Super-Linter](https://github.com/a16bitsysop/docker-dovecot-xapian/workflows/Super-Linter/badge.svg)](https://github.com/marketplace/actions/super-linter)
 
 It uses inet lmtp with ssl and auth, instead of sockets as running inside docker network so less dependencies.  For postfix to use lmtp with ssl it needs ```lmtp_use_tls = yes``` set in main.cf
 
