@@ -1,7 +1,7 @@
 #!/bin/sh
 #display environment variables passed with --env
 echo "\$REDIS= $REDIS"
-echo "\$HOSTNAME= $HOSTANAME"
+echo "\$HOSTNAME= $HOSTNAME"
 echo "\$LETSENCRPT= $LETSENCRYPT"
 echo "\$RSPAMD= $RSPAMD"
 echo "\$POP3PORT= $POP3PORT"
@@ -38,7 +38,7 @@ then
    echo "
 service pop3-login {
  inet_listener pop3s-hiport {
- port = "$POP3PORT"
+ port = $POP3PORT
  ssl = yes
  }
 }

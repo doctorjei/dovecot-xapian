@@ -3,6 +3,7 @@ LABEL maintainer="Duncan Bellamy <dunk@denkimushi.com>"
 
 ENV xapver 1.2.11
 WORKDIR /tmp
+# hadolint ignore=DL3018,DL3003
 RUN sed -i -e 's/v[[:digit:]]\..*\//edge\//g' /etc/apk/repositories && \
 apk add --no-cache dovecot dovecot-lmtpd dovecot-pop3d rspamd-client \
 dovecot-pigeonhole-plugin xapian-core icu-libs lua5.1 glib sqlite-libs
