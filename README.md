@@ -54,7 +54,7 @@ for usname in ${allusers}; do
   sudo doveadm backup -u $usname $sshcmd doas doveadm dsync-server -u $usname
 done
 ```
-### Inside docker-dovecot-xapian
+### Again inside docker-dovecot-xapian
 * List processes: ```ps -A```
 * kill ssh and dropbear processes:
 ```bash
