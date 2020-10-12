@@ -1,11 +1,12 @@
 FROM alpine:3.12
-LABEL maintainer "Duncan Bellamy <dunk@denkimushi.com>"
+LABEL maintainer="Duncan Bellamy <dunk@denkimushi.com>"
 
 RUN mkdir /var/vmail && addgroup -S -g 5000 vmail \
 && adduser -S -u 5000 -h /var/vmail/mailboxes --gecos "virtual mailbox user" --ingroup vmail vmail
 
 COPY --chown=vmail:vmail sieve /var/vmail/sieve
 
+# hadolint ignore=DL3018
 RUN sed -i -e 's/v[[:digit:]]\..*\//edge\//g' /etc/apk/repositories \
 && apk add --no-cache dovecot-lmtpd dovecot-pop3d dovecot-pigeonhole-plugin dovecot-fts-xapian \
  rspamd-client dropbear dropbear-ssh doas \
