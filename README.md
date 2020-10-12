@@ -26,7 +26,7 @@ Mailboxes are stored in dovecot's sdbox format at /var/vmail/mailboxes, so persi
   AllowAgentForwarding no
   ForceCommand /bin/false
 ```
-* Reload ssh: ```bash sudo service sshd reload```
+* Reload ssh: ```sudo service sshd reload```
 
 ### Redis
 * First [create redis keys](#redis-keys) in the redis server container for each user
@@ -34,14 +34,14 @@ Mailboxes are stored in dovecot's sdbox format at /var/vmail/mailboxes, so persi
 * Copy the password hash and create key in redis container with it, any \'$\' in the password hash needs escaping with \ as well.
 
 ### Inside docker-dovecot-xapian
-* Change password for doveback user: ```bash passwd doveback```
-* Start dropbear ssh server in background: ```bash dropbear -R -E -p 127.0.0.1:22```
-* Start reverse ssh tunnel to old dovecot machine: ```bash ssh -R 2222:localhost:22 -N SSHTUNUSER@OLDDOVCOTIP```
+* Change password for doveback user: ```passwd doveback```
+* Start dropbear ssh server in background: ```dropbear -R -E -p 127.0.0.1:22```
+* Start reverse ssh tunnel to old dovecot machine: ```ssh -R 2222:localhost:22 -N SSHTUNUSER@OLDDOVCOTIP```
 
 ### On old dovecot machine
 * Sync mail into docker-dovecot-xapian with the tunnel:
-```bash sudo doveadm backup -u USERNAME@THISSERVER ssh doveback@127.0.0.1 -p 2222 -o "UserKnownHostsFile /dev/null" doas doveadm dsync-server -u REMOTEUSER@REMOTESERVER```
-* ```bash doveadm backup``` is one way ```doveadm sync``` is two way
+```sudo doveadm backup -u USERNAME@THISSERVER ssh doveback@127.0.0.1 -p 2222 -o "UserKnownHostsFile /dev/null" doas doveadm dsync-server -u REMOTEUSER@REMOTESERVER```
+* ```doveadm backup``` is one way ```doveadm sync``` is two way
 * USERNAME@THISSERVER and REMOTEUSER@REMOTESERVER would normally be the same unless THISSERVER does not use virtual mailboxes
 * Repeat for each mailbox that is being migrated or use a script like:
 ```bash
@@ -55,8 +55,8 @@ for usname in ${allusers}; do
 done
 ```
 ### Inside docker-dovecot-xapian
-* List processes: ```bash ps -A```
-* kill ssh and dropbear processes: 
+* List processes: ```ps -A```
+* kill ssh and dropbear processes:
 ```
 kill -SIGTERM DROPBEARPID
 kill -SIGTERM SSHPID
@@ -75,10 +75,10 @@ The following redis keys need setting for each user
 The path for certificates to be mounted in is: ```/etc/letsencrypt```, the actual certificates should then be in the directory ```live/$LETSENCRYPT```.  This is usually mounted from a letsencrpyt/dnsrobocert container.
 
 ## Security
-Dovecot has its own rate limiting for failed logins, for extra security with firewalling use syslog-ng on the docker host and set the docker logging to journald so logs can be parsed by a service like fail2ban 
+Dovecot has its own rate limiting for failed logins, for extra security with firewalling use syslog-ng on the docker host and set the docker logging to journald so logs can be parsed by a service like fail2ban
 
 ## Overriding configuration
-Mount the file ```bash override.conf``` into /etc/dovecot/, this is read last to override any settings.
+Mount the file ```override.conf``` into /etc/dovecot/, this is read last to override any settings.
 
 ## Github
 Github Repository: [https://github.com/a16bitsysop/docker-dovecot-xapian](https://github.com/a16bitsysop/docker-dovecot-xapian)
@@ -86,7 +86,7 @@ Github Repository: [https://github.com/a16bitsysop/docker-dovecot-xapian](https:
 ## Environment Variables
 
 | NAME        | Description                                                               | Default               |
-| ----------- | ------------------------------------------------------------------------- | --------------------- | 
+| ----------- | ------------------------------------------------------------------------- | --------------------- |
 | REDIS       | Name/container name or IP of the redis server                             | none                  |
 | HOSTNAME    | Hostname for dovecot to use                                               | none                  |
 | LETSENCRYPT | Folder name for ssl certs (/etc/letsencrypt/live/$LETSENCRYPT/cert.pem)   | none                  |

@@ -6,6 +6,7 @@ RUN mkdir /var/vmail && addgroup -S -g 5000 vmail \
 
 COPY --chown=vmail:vmail sieve /var/vmail/sieve
 
+SHELL [ "/bin/ash", "-o", "pipefail", "-c" ]
 # hadolint ignore=DL3018
 RUN sed -i -e 's/v[[:digit:]]\..*\//edge\//g' /etc/apk/repositories \
 && apk add --no-cache dovecot-lmtpd dovecot-pop3d dovecot-pigeonhole-plugin dovecot-fts-xapian \

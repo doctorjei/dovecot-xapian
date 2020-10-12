@@ -1,5 +1,5 @@
-FROM alpine:3.11
-LABEL maintainer "Duncan Bellamy <dunk@denkimushi.com>"
+FROM alpine:3.12
+LABEL maintainer="Duncan Bellamy <dunk@denkimushi.com>"
 
 ENV xapver 1.2.11
 WORKDIR /tmp

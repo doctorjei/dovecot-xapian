@@ -1,27 +1,28 @@
 #!/bin/sh
 #display environment variables passed with --env
-echo '$REDIS=' $REDIS
-echo '$HOSTNAME=' $HOSTANAME
-echo '$LETSENCRPT=' $LETSENCRYPT
-echo '$RSPAMD=' $RSPAMD
-echo '$POP3PORT=' $POP3PORT
+echo "\$REDIS= $REDIS"
+echo "\$HOSTNAME= $HOSTANAME"
+echo "\$LETSENCRPT= $LETSENCRYPT"
+echo "\$RSPAMD= $RSPAMD"
+echo "\$POP3PORT= $POP3PORT"
 echo
 
-[ -z "$REDIS" ] && echo '$REDIS is not set, needed for auth' && exit 1
+[ -z "$REDIS" ] && echo "\$REDIS is not set, needed for auth" && exit 1
 
 NME="dovecot-xapian"
 set-timezone.sh "$NME"
 
-cd /etc/dovecot
+cd /etc/dovecot || exit 1
 
 if [ -n "$REDIS" ]
 then
-  REDISIP=$(ping -c1 $REDIS | head -n1 | cut -f2 -d'(' | cut -f1 -d')')
+  REDISIP=$(ping -c1 "$REDIS" | head -n1 | cut -f2 -d'(' | cut -f1 -d')')
   echo "uri = redis:host=$REDISIP" > dict.uri
 #  echo -e "plugin {\n  quota_clone_dict = redis:host=$REDISIP:port=6379\n}" > conf.d/quota.uri
 fi
 
 echo "#10-auto.conf from environment variables" > conf.d/10-auto.conf
+HOSTNAME="$HOSTNAME"
 if [ -n "$HOSTNAME" ]
 then
   echo "hostname = $HOSTNAME" >> conf.d/10-auto.conf
@@ -34,8 +35,19 @@ fi
 
 if [ -n "$POP3PORT" ]
 then
-   echo -e "service pop3-login {\n inet_listener pop3s-hiport {\n port = $POP3PORT\n ssl = yes \n }\n}" >> conf.d/10-auto.conf
-   echo -e "service pop3s-hiport {\n  user = vmail\n}" >> conf.d/10-auto.conf
+   echo "
+service pop3-login {
+ inet_listener pop3s-hiport {
+ port = "$POP3PORT"
+ ssl = yes
+ }
+}
+" >> conf.d/10-auto.conf
+   echo "
+service pop3s-hiport {
+  user = vmail
+}
+" >> conf.d/10-auto.conf
 fi
 
 if [ -n "$RSPAMD" ]
