@@ -38,7 +38,7 @@ Mailboxes are stored in dovecot's sdbox format at /var/vmail/mailboxes, so persi
 * Start dropbear ssh server in background: ```dropbear -R -E -p 127.0.0.1:22```
 * Start reverse ssh tunnel to old dovecot machine: ```ssh -R 2222:localhost:22 -N SSHTUNUSER@OLDDOVCOTIP```
 
-### On old dovecot machine
+### Again on old dovecot machine
 * Sync mail into docker-dovecot-xapian with the tunnel:
 ```sudo doveadm backup -u USERNAME@THISSERVER ssh doveback@127.0.0.1 -p 2222 -o "UserKnownHostsFile /dev/null" doas doveadm dsync-server -u REMOTEUSER@REMOTESERVER```
 * ```doveadm backup``` is one way ```doveadm sync``` is two way
@@ -57,7 +57,7 @@ done
 ### Inside docker-dovecot-xapian
 * List processes: ```ps -A```
 * kill ssh and dropbear processes:
-```
+```bash
 kill -SIGTERM DROPBEARPID
 kill -SIGTERM SSHPID
 ```
