@@ -8,7 +8,7 @@ COPY --chown=vmail:vmail sieve /var/vmail/sieve
 
 SHELL [ "/bin/ash", "-o", "pipefail", "-c" ]
 # hadolint ignore=DL3018
-RUN apk add --no-cache dovecot-lmtpd dovecot-pop3d dovecot-pigeonhole-plugin dovecot-fts-xapian \
+RUN apk add -u --no-cache dovecot-lmtpd dovecot-pop3d dovecot-pigeonhole-plugin dovecot-fts-xapian \
  rspamd-client dropbear dropbear-ssh doas \
 &&  mv /usr/bin/rspamc /var/vmail/sieve/bin/ \
 && rm -rf /etc/dovecot/conf.d/* \
