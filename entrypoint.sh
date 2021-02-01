@@ -28,7 +28,7 @@ then
   echo "hostname = $HOSTNAME" >> conf.d/10-auto.conf
   if [ -n "$LETSENCRYPT" ]
   then
-    echo "ssl_cert = </etc/letsencrypt/live/$LETSENCRYPT/cert.pem" >> conf.d/10-auto.conf
+    echo "ssl_cert = </etc/letsencrypt/live/$LETSENCRYPT/fullchain.pem" >> conf.d/10-auto.conf
     echo "ssl_key = </etc/letsencrypt/live/$LETSENCRYPT/privkey.pem" >> conf.d/10-auto.conf
   fi
 fi
