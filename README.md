@@ -34,6 +34,13 @@ Mailboxes are stored in dovecot's sdbox format at /var/vmail/mailboxes, so persi
 * To create a new password inside docker-dovecot-xapian run ```doveadm pw```, or a better scheme ```doveadm pw -s ARGON2ID```
 * Copy the password hash and create key in redis container with it, any \'$\' in the password hash needs escaping with \ as well.
 
+## Stunnel
+If the STUNNEL environment variable is set then stunnel will be started to pass
+redis commands over a ssl/tls tunnel.  There needs to be a stunnel server at the
+other end to receive the connection, it is different from redis native ssl support.
+There should also be a file /etc/stunnel/psk.txt with the pre shared key, see
+[here](https://www.stunnel.org/auth.html).
+
 ### Inside docker-dovecot-xapian
 * Change password for doveback user: ```passwd doveback```
 * Start dropbear ssh server in background: ```dropbear -R -E -p 127.0.0.1:22```
@@ -91,8 +98,9 @@ Github Repository: [https://github.com/a16bitsysop/docker-dovecot-xapian](https:
 | REDIS       | Name/container name or IP of the redis server                             | none                  |
 | HOSTNAME    | Hostname for dovecot to use                                               | none                  |
 | LETSENCRYPT | Folder name for ssl certs (/etc/letsencrypt/live/$LETSENCRYPT/cert.pem)   | none                  |
-| POP3PORT    | Listen for pop3s on POP3PORT                                                  | do not use this port  |
+| POP3PORT    | Listen for pop3s on POP3PORT                                              | do not use this port  |
 | RSPAMD      | Name/container name or IP of rspamd, for learn ham/spam                   | none                  |
+| STUNNEL     | Use stunnel to encrypt redis traffic on port 6379 if set                  | unset                 |
 | TIMEZONE    | Timezone to use inside the container, eg Europe/London                    | unset                 |
 
 ## Examples

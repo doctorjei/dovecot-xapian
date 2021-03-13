@@ -5,6 +5,7 @@ echo "\$HOSTNAME= $HOSTNAME"
 echo "\$LETSENCRPT= $LETSENCRYPT"
 echo "\$RSPAMD= $RSPAMD"
 echo "\$POP3PORT= $POP3PORT"
+echo "\$STUNNEL= $STUNNEL"
 echo
 
 [ -z "$REDIS" ] && echo "\$REDIS is not set, needed for auth" && exit 1
@@ -13,6 +14,13 @@ NME="dovecot-xapian"
 set-timezone.sh "$NME"
 
 cd /etc/dovecot || exit 1
+
+if [ -n "$STUNNEL" ]
+then
+        sed -r "s/(connect =\s).*:/\1$REDIS:/" -i /etc/stunnel/stunnel.conf
+        stunnel /etc/stunnel/stunnel.conf
+        REDIS="127.0.0.1"
+fi
 
 if [ -n "$REDIS" ]
 then

@@ -9,7 +9,7 @@ COPY --chown=vmail:vmail sieve /var/vmail/sieve
 SHELL [ "/bin/ash", "-o", "pipefail", "-c" ]
 # hadolint ignore=DL3018
 RUN apk add -u --no-cache dovecot-lmtpd dovecot-pop3d dovecot-pigeonhole-plugin dovecot-fts-xapian \
- rspamd-client dropbear dropbear-ssh doas \
+ rspamd-client dropbear dropbear-ssh doas stunnel \
 &&  mv /usr/bin/rspamc /var/vmail/sieve/bin/ \
 && rm -rf /etc/dovecot/conf.d/* \
 && mkdir /etc/dropbear \
@@ -23,6 +23,8 @@ COPY conf ./
 WORKDIR /usr/local/bin
 COPY travis-helpers/set-timezone.sh entrypoint.sh post-run.sh ./
 ENTRYPOINT [ "entrypoint.sh" ]
+
+COPY stunnel.conf /etc/stunnel/stunnel.conf
 
 EXPOSE 993 995 2221
 VOLUME [ "/var/lib/dovecot" "/var/vmail/mailboxes" ]
