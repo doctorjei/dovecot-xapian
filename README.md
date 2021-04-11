@@ -38,12 +38,12 @@ Set the following keys
 | userdb/fetch.user@example.com| Username exists check, and set home inside real user                                | redis-cli set userdb/fetch.user@example.com "{\"home\":\"/var/vmail/mailboxes/example.com/user\",\"mail\":\"sdbox:~/dbox:INBOX=~/dbox/mailboxes/Fetch/dbox-Mails\"}"|
 | passdb/fetch.user@example.com| Json user password hash string                                                      | redis-cli set passdb/fetch.user@example.com "{\"password\":\"{ARGON2ID}\$argon2id\$v=19\$m=65536,t=3,p=1\$PASSWORD\$HASH\"}"|
 
-'fetch.user' is the username used to collect the mail from the Fetch folder and
-'user' is the username of the user whos 'Fetch' folder is being collected.
+```fetch.user``` is the username used to collect the mail from the Fetch folder and
+```user``` is the username of the user whos ```Fetch``` folder is being collected.
 
-An agron2id password hash can be created with 'doveadm pw -s argon2id', all '$' in
-the returned string need escaping with '\' before setting the redis key.  So change
-any '$' to '\$'
+An agron2id password hash can be created with ```doveadm pw -s argon2id```, all ```$``` in
+the returned string need escaping with ```\``` before setting the redis key.  So change
+any ```$``` to ```\$```
 
 ## To import email into docker-dovecot-xapian
 ### On old dovecot machine
