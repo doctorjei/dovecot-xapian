@@ -6,6 +6,7 @@ echo "\$LETSENCRPT= $LETSENCRYPT"
 echo "\$RSPAMD= $RSPAMD"
 echo "\$POP3PORT= $POP3PORT"
 echo "\$STUNNEL= $STUNNEL"
+echo "\$FETCH= $FETCH"
 echo
 
 [ -z "$REDIS" ] && echo "\$REDIS is not set, needed for auth" && exit 1
@@ -14,6 +15,11 @@ NME="dovecot-xapian"
 set-timezone.sh "$NME"
 
 cd /etc/dovecot || exit 1
+
+if [ -n "$FETCH" ]
+then
+	sed "s/#fileinto/fileinto/" -i /var/vmail/sieve/global/after.sieve
+fi
 
 if [ -n "$STUNNEL" ]
 then

@@ -15,6 +15,36 @@ The default storage quota is 20GB per user, quota settings can be changed with u
 
 Mailboxes are stored in dovecot's sdbox format at /var/vmail/mailboxes, so persistent storage should be mounted there to keep the email.
 
+## Stunnel
+If the STUNNEL environment variable is set then stunnel will be started to pass
+redis commands over a ssl/tls tunnel.  There needs to be a stunnel server at the
+other end to receive the connection, it is different from redis native ssl support.
+There should also be a file /etc/stunnel/psk.txt with the pre shared key, see
+[here](https://www.stunnel.org/auth.html).
+
+## Fetching email
+If the FETCH environment variable is set then incomming email is copied into the
+Fetch folder for every user, this is set to delete emails older than 7days.
+Normally a service like gmail will delete all the emails it fetches, but if an
+email fails its checks it will be left in the Fetch folder.
+
+An extra fetch user needs to set up for each user wishing to do this, so you can set
+a seperate strong password for this.
+
+Set the following keys
+
+| KEY                          | Description                                                                         | Example                                                                             |
+| ---------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| userdb/fetch.user@example.com| Username exists check, and set home inside real user                                | redis-cli set userdb/fetch.user@example.com "{\"home\":\"/var/vmail/mailboxes/example.com/user\",\"mail\":\"sdbox:~/dbox:INBOX=~/dbox/mailboxes/Fetch/dbox-Mails\"}"|
+| passdb/fetch.user@example.com| Json user password hash string                                                      | redis-cli set passdb/fetch.user@example.com "{\"password\":\"{ARGON2ID}\$argon2id\$v=19\$m=65536,t=3,p=1\$PASSWORD\$HASH\"}"|
+
+'fetch.user' is the username used to collect the mail from the Fetch folder and
+'user' is the username of the user whos 'Fetch' folder is being collected.
+
+An agron2id password hash can be created with 'doveadm pw -s argon2id', all '$' in
+the returned string need escaping with '\' before setting the redis key.  So change
+any '$' to '\$'
+
 ## To import email into docker-dovecot-xapian
 ### On old dovecot machine
 * Create a user for the reverse tunnel: ```sudo useradd SSHTUNUSER -m -s /bin/true```
@@ -33,13 +63,6 @@ Mailboxes are stored in dovecot's sdbox format at /var/vmail/mailboxes, so persi
 * First [create redis keys](#redis-keys) in the redis server container for each user
 * To create a new password inside docker-dovecot-xapian run ```doveadm pw```, or a better scheme ```doveadm pw -s ARGON2ID```
 * Copy the password hash and create key in redis container with it, any \'$\' in the password hash needs escaping with \ as well.
-
-## Stunnel
-If the STUNNEL environment variable is set then stunnel will be started to pass
-redis commands over a ssl/tls tunnel.  There needs to be a stunnel server at the
-other end to receive the connection, it is different from redis native ssl support.
-There should also be a file /etc/stunnel/psk.txt with the pre shared key, see
-[here](https://www.stunnel.org/auth.html).
 
 ### Inside docker-dovecot-xapian
 * Change password for doveback user: ```passwd doveback```
@@ -101,6 +124,7 @@ Github Repository: [https://github.com/a16bitsysop/docker-dovecot-xapian](https:
 | POP3PORT    | Listen for pop3s on POP3PORT                                              | do not use this port  |
 | RSPAMD      | Name/container name or IP of rspamd, for learn ham/spam                   | none                  |
 | STUNNEL     | Use stunnel to encrypt redis traffic on port 6379 if set                  | unset                 |
+| FETCH       | Copy email to 7 day expiring "Fetch" folder for another service to fetch  | unset                 |
 | TIMEZONE    | Timezone to use inside the container, eg Europe/London                    | unset                 |
 
 ## Examples
