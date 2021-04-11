@@ -45,6 +45,9 @@ An agron2id password hash can be created with ```doveadm pw -s argon2id```, all 
 the returned string need escaping with ```\``` before setting the redis key.  So change
 any ```$``` to ```\$```
 
+Best used with ```POP3PORT``` to listen on a random port if port can be changed for
+fetching service.
+
 ## To import email into docker-dovecot-xapian
 ### On old dovecot machine
 * Create a user for the reverse tunnel: ```sudo useradd SSHTUNUSER -m -s /bin/true```
