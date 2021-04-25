@@ -46,14 +46,14 @@ fi
 
 # most decoders can't handle stdin directly, so write the attachment
 # to a temp file
-path=$(mktemp)
+path=$(mktemp /tmp/decode.XXXX)
+trap "rm -rf /tmp/decode.*" EXIT
 cat > "$path"
-rm -rf "$path" "$tempdir"
 
 xmlunzip() {
   name="$1"
 
-  tempdir=$(mktemp -d) || exit 1
+  tempdir=$(mktemp -d /tmp/decode.XXXX) || exit 1
   cd "$tempdir" || exit 1
   unzip -q "$path" 2>/dev/null || exit 0
   find . -name "$name" -print0 | xargs -0 cat |
