@@ -48,7 +48,7 @@ fi
 # to a temp file
 path=$(mktemp /tmp/decode.XXXX)
 trap "rm -rf /tmp/decode.*" EXIT
-cat > "$path"
+tee "$path"
 
 xmlunzip() {
   name="$1"
