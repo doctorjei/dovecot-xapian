@@ -47,14 +47,14 @@ fi
 # most decoders can't handle stdin directly, so write the attachment
 # to a temp file
 path=$(mktemp)
-trap "rm -f $path" 0 1 2 3 14 15
+trap "rm -f '$path'" 0 1 2 3 14 15
 cat > "$path"
 
 xmlunzip() {
   name="$1"
 
   tempdir=$(mktemp -d) || exit 1
-  trap "rm -rf $path $tempdir" 0 1 2 3 14 15
+  trap "rm -rf '$path' '$tempdir'" 0 1 2 3 14 15
   cd "$tempdir" || exit 1
   unzip -q "$path" 2>/dev/null || exit 0
   find . -name "$name" -print0 | xargs -0 cat |
@@ -63,7 +63,7 @@ xmlunzip() {
 
 wait_timeout() {
   childpid="$!"
-  trap "kill -9 $childpid; rm -f $path" 1 2 3 14 15
+  trap "kill -9 '$childpid'; rm -f '$path'" 1 2 3 14 15
   wait "$childpid"
 }
 
@@ -72,7 +72,7 @@ export LANG
 if [ "$fmt" = "pdf" ]; then
   /usr/bin/pdftotext "$path" 2>/dev/null&
   wait_timeout 2>/dev/null
-elif [ "$fmt" = "odt" -o "$fmt" = "ods" -o "$fmt" = "odp" ]; then
+elif [ "$fmt" = "odt" ] || [ "$fmt" = "ods" ] || [ "$fmt" = "odp" ]; then
   xmlunzip "content.xml"
 elif [ "$fmt" = "docx" ]; then
   xmlunzip "document.xml"
