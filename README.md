@@ -4,8 +4,7 @@ Dockerfile to run [dovecot](https://www.dovecot.org) as a docker container, redi
 [![Docker Pulls](https://img.shields.io/docker/pulls/a16bitsysop/dovecot-xapian.svg?style=plastic)](https://hub.docker.com/r/a16bitsysop/dovecot-xapian/)
 [![Docker Stars](https://img.shields.io/docker/stars/a16bitsysop/dovecot-xapian.svg?style=plastic)](https://hub.docker.com/r/a16bitsysop/dovecot-xapian/)
 [![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/a16bitsysop/dovecot-xapian/latest?style=plastic)](https://hub.docker.com/r/a16bitsysop/dovecot-xapian/)
-[![Github SHA](https://img.shields.io/badge/dynamic/json?style=plastic&color=orange&label=Github%20SHA&query=object.sha&url=https%3A%2F%2Fapi.github.com%2Frepos%2Fa16bitsysop%2Fdocker-dovecot-xapian%2Fgit%2Frefs%2Fheads%2Fmain)](https://github.com/a16bitsysop/docker-dovecot-xapian)
-[![GitHub Super-Linter](https://github.com/a16bitsysop/docker-dovecot-xapian/workflows/Super-Linter/badge.svg)](https://github.com/marketplace/actions/super-linter)
+[![Release Commit SHA](https://img.shields.io/badge/dynamic/json.svg?label=release%20commit%20SHA&url=https://gitlab.com/a16bitsysop/docker-dovecot-xapian/-/jobs/artifacts/main/raw/badges.json?job=build-x&query=sha&style&plastic&color=orange)](https://gitlab.com/a16bitsysop/docker-dovecot-xapian/)
 
 It uses inet lmtp with ssl and auth, instead of sockets as running inside docker network so less dependencies.  For postfix to use lmtp with ssl it needs ```lmtp_use_tls = yes``` set in main.cf
 
@@ -114,8 +113,8 @@ Dovecot has its own rate limiting for failed logins, for extra security with fir
 ## Overriding configuration
 Mount the file ```override.conf``` into /etc/dovecot/, this is read last to override any settings.
 
-## Github
-Github Repository: [https://github.com/a16bitsysop/docker-dovecot-xapian](https://github.com/a16bitsysop/docker-dovecot-xapian)
+## Gitlab
+Gitlab Repository: [https://gitlab.com/a16bitsysop/docker-dovecot-xapian](https://gitlab.com/a16bitsysop/docker-dovecot-xapian)
 
 ## Environment Variables
 
