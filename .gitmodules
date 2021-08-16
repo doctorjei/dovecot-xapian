@@ -1,3 +1,9 @@
 [submodule "travis-helpers"]
 	path = travis-helpers
 	url = https://github.com/a16bitsysop/travis-helpers.git
+[submodule "templates"]
+	path = templates
+	url = https://gitlab.com/a16bitsysop/templates.git
+[submodule "container-scripts"]
+	path = container-scripts
+	url = https://gitlab.com/a16bitsysop/container-scripts.git
