@@ -1,0 +1,37 @@
+image: jdrouet/docker-with-buildx:stable
+
+services:
+  - docker:dind
+
+buildx:
+  stage: build_x_push
+  before_script:
+    - echo "$DOCKER_PW" | docker login --password-stdin -u "$DOCKER_UN"
+  script:
+    - docker buildx create --use
+    - |
+        [ -z "$DOCKER_REPO" ] && DOCKER_REPO="$CI_PROJECT_NAME"
+        docker buildx build \
+        --label "org.label-schema.schema-version=1.0" \
+        --label "org.label-schema.build-date=$(date -u +"%Y-%m-%d %H:%M:%S")" \
+        --label "org.label-schema.vcs-ref=$CI_COMMIT_SHA" \
+        --label "org.label-schema.vcs-url=https://gitlab.com/$CI_PROJECT_PATH" \
+        --label "org.label-schema.name=$DOCKER_REPO" \
+        --label "org.label-schema.version=$CI_COMMIT_TAG" \
+        --label "alpine-version=$ALP_VER" \
+        --label "org.label-schema.description=$DESC" \
+        --platform linux/arm/v7,linux/arm64,linux/386,linux/amd64,linux/s390x,linux/ppc64le \
+        --tag "$DOCKER_UN"/"$DOCKER_REPO" \
+        --tag "$DOCKER_UN"/"$DOCKER_REPO":gitlab --push .
+  after_script:
+    - |
+        echo "{\"sha\":\"$CI_COMMIT_SHA\"}" > badges.json
+  artifacts:
+    paths:
+        - badges.json
+    when: always
+  rules:
+    - if: $CI_COMMIT_TAG
+  needs:
+    - job: build
+      artifacts: true
