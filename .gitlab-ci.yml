@@ -1,6 +1,6 @@
 variables:
   GIT_SUBMODULE_STRATEGY: normal
-  DOCKER_IMAGE: $CI_REGISTRY/a16bitsysop/dovecot-xapian:test
+  DOCKER_IMAGE: $CI_REGISTRY/a16bitsysop/docker-dovecot-xapian:test
 
 include:
 - template: Jobs/Code-Quality.gitlab-ci.yml
