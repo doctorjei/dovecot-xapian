@@ -26,7 +26,7 @@ COPY conf ./
 
 WORKDIR /usr/local/bin
 COPY container-scripts/set-timezone.sh entrypoint.sh post-run.sh ./
-ENTRYPOINT [ "entrypoint.sh" ]
+CMD [ "entrypoint.sh" ]
 
 COPY stunnel.conf /etc/stunnel/stunnel.conf
 
