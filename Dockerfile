@@ -25,7 +25,7 @@ WORKDIR /etc/dovecot
 COPY conf ./
 
 WORKDIR /usr/local/bin
-COPY travis-helpers/set-timezone.sh entrypoint.sh post-run.sh ./
+COPY container-scripts/set-timezone.sh entrypoint.sh post-run.sh ./
 ENTRYPOINT [ "entrypoint.sh" ]
 
 COPY stunnel.conf /etc/stunnel/stunnel.conf
