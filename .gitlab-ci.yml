@@ -14,8 +14,6 @@ stages:
 - test
 - build_x_push
 
-before_script:
-  - git submodule update --init --recursive templates
 # add after_script to build to get label info
 build:
   variables:
