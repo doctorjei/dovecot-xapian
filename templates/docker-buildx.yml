@@ -6,7 +6,7 @@ services:
 buildx:
   stage: build_x_push
   before_script:
-    - docker login --p "$DOCKER_PW" --u "$DOCKER_UN"
+    - docker login -p "$DOCKER_PW" -u "$DOCKER_UN"
   script:
     - docker buildx create --use
     - |
