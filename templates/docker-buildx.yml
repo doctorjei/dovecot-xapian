@@ -13,7 +13,7 @@ buildx:
         [ -z "$DOCKER_REPO" ] && DOCKER_REPO="$CI_PROJECT_NAME"
         docker buildx build \
         --label "org.label-schema.schema-version=1.0" \
-        --label "org.label-schema.build-date=$(date -u +"%Y-%m-%d %H:%M:%S")" \
+        --label "org.label-schema.build-date=$CI_PIPELINE_CREATED_AT" \
         --label "org.label-schema.vcs-ref=$CI_COMMIT_SHA" \
         --label "org.label-schema.vcs-url=https://gitlab.com/$CI_PROJECT_PATH" \
         --label "org.label-schema.name=$DOCKER_REPO" \
