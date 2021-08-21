@@ -1,3 +1,7 @@
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://gitlab.com/a16bitsysop/docker-dovecot-xapian)
+
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://gitlab.com/a16bitsysop/docker-dovecot-xapian)
+
 # docker-dovecot-xapian
 Dockerfile to run [dovecot](https://www.dovecot.org) as a docker container, redis is used for userdb/passdb lookups to reduce footprint.
 
