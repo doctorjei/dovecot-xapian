@@ -12,6 +12,7 @@ include:
 stages:
 - build
 - test
+- dast
 - build_x_push
 
 # add after_script to build to get label info
