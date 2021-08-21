@@ -6,13 +6,12 @@ include:
 - template: Jobs/Code-Quality.gitlab-ci.yml
 - template: Jobs/Build.gitlab-ci.yml
 - template: Jobs/Secret-Detection.gitlab-ci.yml
-- template: DAST.gitlab-ci.yml
+- template: SAST.gitlab-ci.yml
 - template: Security/Container-Scanning.gitlab-ci.yml
 - local: /templates/docker-buildx.yml
 stages:
 - build
 - test
-- dast
 - build_x_push
 
 # add after_script to build to get label info
