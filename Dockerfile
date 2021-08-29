@@ -11,7 +11,8 @@ SHELL [ "/bin/ash", "-o", "pipefail", "-c" ]
 RUN apk add -u --no-cache dovecot-lmtpd dovecot-pop3d dovecot-pigeonhole-plugin dovecot-fts-xapian \
  curl dropbear dropbear-ssh doas stunnel \
  unzip mupdf-tools \
-&&  mv /usr/bin/curl /var/vmail/sieve/bin/ \
+&& echo && echo && cat /etc/alpine-release && echo && echo \
+&& mv /usr/bin/curl /var/vmail/sieve/bin/ \
 && rm -rf /etc/dovecot/conf.d/* \
 && mkdir /etc/dropbear \
 && adduser -D -h /home/doveback doveback \
