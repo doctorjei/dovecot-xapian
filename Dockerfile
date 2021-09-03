@@ -1,4 +1,5 @@
-FROM alpine:3.14
+ARG DVER=latest
+FROM alpine:$DVER
 LABEL maintainer="Duncan Bellamy <dunk@denkimushi.com>"
 
 RUN mkdir /var/vmail && addgroup -S -g 5000 vmail \
