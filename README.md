@@ -1,12 +1,12 @@
-[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://gitlab.com/a16bitsysop/docker-dovecot-xapian)
-
-# docker-dovecot-xapian
-Dockerfile to run [dovecot](https://www.dovecot.org) as a docker container, redis is used for userdb/passdb lookups to reduce footprint.
+# dovecot-xapian
+Docker image to run [dovecot](https://www.dovecot.org), redis is used for userdb/passdb lookups to reduce footprint.
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/a16bitsysop/dovecot-xapian.svg?style=plastic)](https://hub.docker.com/r/a16bitsysop/dovecot-xapian/)
 [![Docker Stars](https://img.shields.io/docker/stars/a16bitsysop/dovecot-xapian.svg?style=plastic)](https://hub.docker.com/r/a16bitsysop/dovecot-xapian/)
 [![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/a16bitsysop/dovecot-xapian/latest?style=plastic)](https://hub.docker.com/r/a16bitsysop/dovecot-xapian/)
 [![Release Commit SHA](https://img.shields.io/badge/dynamic/json.svg?label=release%20commit%20SHA&url=https://gitlab.com/a16bitsysop/docker-dovecot-xapian/-/jobs/artifacts/main/raw/badges.json?job=build-x&query=sha&style&plastic&color=orange)](https://gitlab.com/a16bitsysop/docker-dovecot-xapian/)
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://gitlab.com/a16bitsysop/docker-dovecot-xapian)
+
 
 It uses inet lmtp with ssl and auth, instead of sockets as running inside docker network so less dependencies.  For postfix to use lmtp with ssl it needs ```lmtp_use_tls = yes``` set in main.cf
 
