@@ -19,6 +19,12 @@ RUN apk add -u --no-cache dovecot-lmtpd dovecot-pop3d dovecot-pigeonhole-plugin 
 && echo "doveback:$(openssl rand -base64 32)" | chpasswd \
 && echo "permit nopass doveback as root cmd doveadm" >> /etc/doas.conf
 
+# if DAPK is not set bake file defaults it to alpine-base
+RUN echo "DAPK is: $DAPK" \
+&& apk list -q $DAPK | awk '{print $1}'> /etc/apkvers \
+&& cat /etc/apkvers
+
+
 WORKDIR /usr/libexec/dovecot
 COPY decode2text.sh ./
 
