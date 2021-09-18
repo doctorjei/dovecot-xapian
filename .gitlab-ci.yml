@@ -7,7 +7,8 @@ include:
 - template: Jobs/Secret-Detection.gitlab-ci.yml
 - template: Jobs/SAST.gitlab-ci.yml
 - template: Security/Container-Scanning.gitlab-ci.yml
-- remote: https://gitlab.com/a16bitsysop/gitlab-templates/-/raw/main/docker-buildx.yml
+- remote: https://gitlab.com/container-email/gitlab-templates/-/raw/main/docker-buildx.yml
+- remote: https://gitlab.com/container-email/gitlab-templates/-/raw/main/badge-info.yml
 
 stages:
 - build
