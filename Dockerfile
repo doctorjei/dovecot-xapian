@@ -2,7 +2,7 @@ ARG DVER=latest
 FROM docker.io/alpine:$DVER
 LABEL maintainer="Duncan Bellamy <dunk@denkimushi.com>"
 ARG DAPK
-ARG DFXVER
+ARG APKVER
 
 RUN mkdir /var/vmail && addgroup -S -g 5000 vmail \
 && adduser -S -u 5000 -h /var/vmail/mailboxes --gecos "virtual mailbox user" --ingroup vmail vmail
@@ -11,7 +11,7 @@ COPY --chown=vmail:vmail sieve /var/vmail/sieve
 
 SHELL [ "/bin/ash", "-o", "pipefail", "-c" ]
 
-RUN apk add -u --no-cache dovecot-lmtpd dovecot-pop3d dovecot-pigeonhole-plugin dovecot-fts-xapian$DFXVER \
+RUN apk add -u --no-cache dovecot-lmtpd dovecot-pop3d dovecot-pigeonhole-plugin dovecot-fts-xapian$APKVER \
  curl dropbear dropbear-ssh doas stunnel \
  unzip mupdf-tools \
 && mv /usr/bin/curl /var/vmail/sieve/bin/ \
