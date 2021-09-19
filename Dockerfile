@@ -1,5 +1,5 @@
 ARG DVER=latest
-FROM alpine:$DVER
+FROM docker.io/alpine:$DVER
 LABEL maintainer="Duncan Bellamy <dunk@denkimushi.com>"
 ARG DAPK
 
