@@ -3,12 +3,15 @@ variables:
   DOCKER_IMAGE: "$CI_REGISTRY/$CI_PROJECT_PATH:test"
 
 include:
-- template: Jobs/Code-Quality.gitlab-ci.yml
-- template: Jobs/Secret-Detection.gitlab-ci.yml
-- template: Jobs/SAST.gitlab-ci.yml
-- template: Security/Container-Scanning.gitlab-ci.yml
-- remote: https://gitlab.com/container-email/gitlab-templates/-/raw/main/docker-buildx.yml
-- remote: https://gitlab.com/container-email/gitlab-templates/-/raw/main/badge-info.yml
+- project: container-email/resources/gitlab-templates
+  ref: main
+  file: test.yml
+- project: container-email/resources/gitlab-templates
+  ref: main
+  file: docker-buildx.yml
+- project: container-email/resources/gitlab-templates
+  ref: main
+  file: badge-info.yml
 
 stages:
 - build
