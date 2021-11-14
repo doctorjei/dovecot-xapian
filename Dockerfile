@@ -4,10 +4,10 @@ LABEL maintainer="Duncan Bellamy <dunk@denkimushi.com>"
 ARG DAPK
 ARG APKVER
 
-RUN mkdir /var/vmail && addgroup -S -g 5000 vmail \
-&& adduser -S -u 5000 -h /var/vmail/mailboxes --gecos "virtual mailbox user" --ingroup vmail vmail
-
-COPY --chown=vmail:vmail sieve /var/vmail/sieve
+COPY --chmod=755 --chown=vmail:vmail sieve /var/vmail/sieve/global
+RUN addgroup -S -g 5000 vmail \
+&& adduser -S -u 5000 -h /var/vmail/mailboxes --gecos "virtual mailbox user" --ingroup vmail vmail \
+&& mkdir /var/vmail/sieve/bin
 
 SHELL [ "/bin/ash", "-o", "pipefail", "-c" ]
 
@@ -26,18 +26,17 @@ RUN echo "DAPK is: $DAPK" \
 && apk list -q $DAPK | awk '{print $1}'> /etc/apkvers \
 && cat /etc/apkvers
 
-
 WORKDIR /usr/libexec/dovecot
-COPY decode2text.sh ./
+COPY --chmod=755 decode2text.sh ./
 
 WORKDIR /etc/dovecot
 COPY conf ./
 
 WORKDIR /usr/local/bin
-COPY container-scripts/set-timezone.sh entrypoint.sh post-run.sh ./
+COPY --chmod=755 container-scripts/set-timezone.sh entrypoint.sh post-run.sh ./
 CMD [ "entrypoint.sh" ]
 
-COPY stunnel.conf /etc/stunnel/stunnel.conf
+COPY --chmod=644 stunnel.conf /etc/stunnel/stunnel.conf
 
 EXPOSE 993 995 2221
 VOLUME [ "/var/lib/dovecot" "/var/vmail/mailboxes" ]
