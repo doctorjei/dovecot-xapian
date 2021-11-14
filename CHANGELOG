@@ -1,2 +1,3 @@
 * Push containers to GitLab container repo as well as docker hub
 * Fix permissions with chmod for copy in Dockerfile
+* 
