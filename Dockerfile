@@ -7,12 +7,12 @@ ARG APKVER
 COPY --chmod=755 --chown=vmail:vmail sieve /var/vmail/sieve/global
 RUN addgroup -S -g 5000 vmail \
 && adduser -S -u 5000 -h /var/vmail/mailboxes --gecos "virtual mailbox user" --ingroup vmail vmail \
-&& mkdir /var/vmail/sieve/bin
+&& mkdir  /var/vmail/sieve/bin
 
 SHELL [ "/bin/ash", "-o", "pipefail", "-c" ]
 
-RUN apk add -u --no-cache dovecot-lmtpd dovecot-pop3d dovecot-pigeonhole-plugin dovecot-fts-xapian$APKVER \
- curl dropbear dropbear-ssh doas stunnel \
+RUN apk add -u --no-cache curl doas dovecot-lmtpd dovecot-pop3d dovecot-pigeonhole-plugin dovecot-fts-xapian$APKVER \
+  dropbear dropbear-ssh stunnel \
  unzip mupdf-tools \
 && mv /usr/bin/curl /var/vmail/sieve/bin/ \
 && rm -rf /etc/dovecot/conf.d/* \
