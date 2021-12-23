@@ -33,10 +33,12 @@ WORKDIR /etc/dovecot
 COPY conf ./
 
 WORKDIR /usr/local/bin
-COPY --chmod=755 container-scripts/set-timezone.sh entrypoint.sh post-run.sh ./
+COPY --chmod=755 container-scripts/set-timezone.sh container-scripts/health-nc.sh entrypoint.sh post-run.sh ./
 CMD [ "entrypoint.sh" ]
 
 COPY --chmod=644 stunnel.conf /etc/stunnel/stunnel.conf
 
 EXPOSE 993 995 2221
 VOLUME [ "/var/lib/dovecot" "/var/vmail/mailboxes" ]
+
+HEALTHCHECK --start-period=60s CMD health-nc.sh PING 5001 PONG || exit 1
