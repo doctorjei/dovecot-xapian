@@ -7,7 +7,8 @@ ARG APKVER
 COPY --chmod=755 --chown=vmail:vmail sieve /var/vmail/sieve/global
 RUN addgroup -S -g 5000 vmail \
 && adduser -S -u 5000 -h /var/vmail/mailboxes --gecos "virtual mailbox user" --ingroup vmail vmail \
-&& mkdir  /var/vmail/sieve/bin
+&& mkdir  /var/vmail/sieve/bin \
+&& find /var/vmail/sieve/global -name "*.sieve" -print -exec sievec {} \;
 
 SHELL [ "/bin/ash", "-o", "pipefail", "-c" ]
 
