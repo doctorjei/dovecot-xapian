@@ -19,6 +19,7 @@ cd /etc/dovecot || exit 1
 if [ -n "$FETCH" ]
 then
 	sed "s/#fileinto/fileinto/" -i /var/vmail/sieve/global/after.sieve
+  sievec /var/vmail/sieve/global/after.sieve
 fi
 
 if [ -n "$STUNNEL" ]
