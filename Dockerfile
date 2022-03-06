@@ -7,8 +7,7 @@ ARG APKVER
 COPY --chmod=755 --chown=vmail:vmail sieve /var/vmail/sieve/global
 RUN addgroup -S -g 5000 vmail \
 && adduser -S -u 5000 -h /var/vmail/mailboxes --gecos "virtual mailbox user" --ingroup vmail vmail \
-&& mkdir  /var/vmail/sieve/bin \
-&& find /var/vmail/sieve/global -name "*.sieve" -print -exec sievec {} \;
+&& mkdir  /var/vmail/sieve/bin
 
 SHELL [ "/bin/ash", "-o", "pipefail", "-c" ]
 
@@ -20,7 +19,8 @@ RUN apk add -u --no-cache curl doas dovecot-lmtpd dovecot-pop3d dovecot-pigeonho
 && mkdir /etc/dropbear \
 && adduser -D -h /home/doveback doveback \
 && echo "doveback:$(openssl rand -base64 32)" | chpasswd \
-&& echo "permit nopass doveback as root cmd doveadm" >> /etc/doas.conf
+&& echo "permit nopass doveback as root cmd doveadm" >> /etc/doas.conf \
+&& find /var/vmail/sieve/global -name "*.sieve" -print -exec sievec {} \;
 
 # if DAPK is not set bake file defaults it to alpine-base
 RUN echo "DAPK is: $DAPK" \
