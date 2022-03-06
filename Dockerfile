@@ -19,8 +19,7 @@ RUN apk add -u --no-cache curl doas dovecot-lmtpd dovecot-pop3d dovecot-pigeonho
 && mkdir /etc/dropbear \
 && adduser -D -h /home/doveback doveback \
 && echo "doveback:$(openssl rand -base64 32)" | chpasswd \
-&& echo "permit nopass doveback as root cmd doveadm" >> /etc/doas.conf \
-&& find /var/vmail/sieve/global -name "*.sieve" -print -exec sievec {} \;
+&& echo "permit nopass doveback as root cmd doveadm" >> /etc/doas.conf
 
 # if DAPK is not set bake file defaults it to alpine-base
 RUN echo "DAPK is: $DAPK" \
@@ -32,6 +31,7 @@ COPY --chmod=755 decode2text.sh ./
 
 WORKDIR /etc/dovecot
 COPY conf ./
+RUN find /var/vmail/sieve/global -name "*.sieve" -print -exec sievec {} \;
 
 WORKDIR /usr/local/bin
 COPY --chmod=755 container-scripts/set-timezone.sh container-scripts/health-nc.sh entrypoint.sh post-run.sh ./
