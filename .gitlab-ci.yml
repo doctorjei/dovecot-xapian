@@ -6,9 +6,11 @@ include:
 - project: container-email/resources/gitlab-templates
   ref: main
   file: test.yml
+
 - project: container-email/resources/gitlab-templates
   ref: main
   file: docker-buildx.yml
+
 - project: container-email/resources/gitlab-templates
   ref: main
   file: badge-info.yml
