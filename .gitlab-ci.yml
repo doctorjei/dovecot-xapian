@@ -15,6 +15,10 @@ include:
   ref: main
   file: badge-info.yml
 
+code_quality:
+  variables:
+    DOCKER_TLS_CERTDIR: /certs
+
 stages:
 - lint
 - build
