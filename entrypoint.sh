@@ -17,7 +17,7 @@ set-timezone.sh "$NME"
 cd /etc/dovecot || exit 1
 
 if [ -n "$FETCH" ]; then
-	sed "s/#fileinto/fileinto/" -i /var/vmail/sieve/global/after.sieve
+  sed "s/#fileinto/fileinto/" -i /var/vmail/sieve/global/after.sieve
   sievec /var/vmail/sieve/global/after.sieve
 fi
 
@@ -51,7 +51,7 @@ if [ -n "$HOSTNAME" ]; then
 fi
 
 if [ -n "$POP3PORT" ]; then
-   echo "
+  echo "
 service pop3-login {
  inet_listener pop3s-hiport {
  port = $POP3PORT
@@ -59,7 +59,7 @@ service pop3-login {
  }
 }
 " >>conf.d/10-auto.conf
-   echo "
+  echo "
 service pop3s-hiport {
   user = vmail
 }
@@ -67,8 +67,8 @@ service pop3s-hiport {
 fi
 
 if [ -n "$RSPAMD" ]; then
-   for f in spam ham; do
-   sed "s/localhost/$RSPAMD/" -i "/var/vmail/sieve/global/learn-$f.sieve"
+  for f in spam ham; do
+    sed "s/localhost/$RSPAMD/" -i "/var/vmail/sieve/global/learn-$f.sieve"
   done
 fi
 
