@@ -76,6 +76,6 @@ openssl dhparam 1024 >/etc/ssl/dh2048.pem
 
 post-run.sh &
 
-chown 5000:5000 /var/vmail/mailboxes  && chmod 770 /var/vmail/mailboxes
+chown 5000:5000 /var/vmail/mailboxes && chmod 770 /var/vmail/mailboxes
 
 dovecot -F
