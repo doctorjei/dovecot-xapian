@@ -7,6 +7,6 @@ echo "Syncing Mail..."
 for usname in ${allusers}; do
   echo "Backing up $usname"
   sudo doveadm backup -u "$usname" "$sshcmd" doas doveadm dsync-server -u "$usname"
-#  echo "Syncing up $usname"
-#  sudo doveadm sync -u $usname $sshcmd doas doveadm dsync-server -u $usname
+  #  echo "Syncing up $usname"
+  #  sudo doveadm sync -u $usname $sshcmd doas doveadm dsync-server -u $usname
 done
