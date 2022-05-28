@@ -2,18 +2,14 @@
 sleep 1m
 echo "Staring indexing of mailboxes..."
 DOMS=$(find /var/vmail/mailboxes -type d -maxdepth 1 -mindepth 1 | sed "s+.*/++" | xargs)
-for DOM in ${DOMS}
-do
+for DOM in ${DOMS}; do
   DOVEUSERS=$(find /var/vmail/mailboxes/"$DOM" -type d -maxdepth 1 -mindepth 1 | sed "s+.*/++" | xargs)
-  for DUSER in ${DOVEUSERS}
-  do
+  for DUSER in ${DOVEUSERS}; do
     EXCLUDES=$(doveconf -n | grep autoindex_exclude | sed -e "s/.*=\s//g" -e "s/[\\]//g" | xargs)
     MAILBOXES=$(doveadm mailbox list -u "$DUSER@$DOM" | xargs)
-    for BOX in ${MAILBOXES}
-    do
+    for BOX in ${MAILBOXES}; do
       INDX="yes"
-      for EX in ${EXCLUDES}
-      do
+      for EX in ${EXCLUDES}; do
         [ "$EX" != "$BOX" ] || INDX=""
       done
       [ -n "$INDX" ] && doveadm index -u "$DUSER@$DOM" -q "$BOX"
@@ -28,14 +24,11 @@ doveadm reload
 
 TH="$(date '+%H')"
 sleep "$(echo 23-"$TH"+2 | bc)h"
-while true
-do
+while true; do
   DOMS=$(find /var/vmail/mailboxes -type d -maxdepth 1 -mindepth 1 | sed "s+.*/++" | xargs)
-  for DOM in ${DOMS}
-  do
+  for DOM in ${DOMS}; do
     DOVEUSERS=$(find /var/vmail/mailboxes/"$DOM" -type d -maxdepth 1 -mindepth 1 | sed "s+.*/++" | xargs)
-    for DUSER in ${DOVEUSERS}
-    do
+    for DUSER in ${DOVEUSERS}; do
       doveadm fts optimize -u "$DUSER@$DOM" 2>&1
     done
   done
