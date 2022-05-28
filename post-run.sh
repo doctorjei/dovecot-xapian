@@ -18,7 +18,7 @@ for DOM in ${DOMS}; do
 done
 sleep 1m
 echo "Generating 4096bit dhparam key"
-openssl dhparam 4096 > /etc/ssl/dh4096.pem
+openssl dhparam 4096 >/etc/ssl/dh4096.pem
 sed -i 's+ssl_dh=<\/etc\/ssl\/dh2048.pem+ssl_dh=<\/etc\/ssl\/dh4096.pem+g' /etc/dovecot/conf.d/10-ssl.conf
 doveadm reload
 
