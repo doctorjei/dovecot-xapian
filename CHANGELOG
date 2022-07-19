@@ -1,3 +1,4 @@
 * Push containers to GitLab container repo as well as docker hub
 * Fix permissions with chmod for copy in Dockerfile
 * Build for alpine 3.15.1
+* Build for alpine 3.16.1
