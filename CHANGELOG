@@ -2,3 +2,4 @@
 * Fix permissions with chmod for copy in Dockerfile
 * Build for alpine 3.15.1
 * Build for alpine 3.16.1
+* Build for alpine 3.17.1
