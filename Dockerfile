@@ -15,7 +15,7 @@ RUN apk update \
 && apk upgrade --available --no-cache \
 && apk add -u --no-cache curl doas dovecot-lmtpd dovecot-pop3d dovecot-pigeonhole-plugin dovecot-fts-xapian$APKVER \
   dropbear dropbear-ssh icu-data-full stunnel \
- unzip mupdf-tools \
+  unzip mupdf-tools \
 && mv /usr/bin/curl /var/vmail/sieve/bin/ \
 && rm -rf /etc/dovecot/conf.d/* \
 && mkdir /etc/dropbear \
