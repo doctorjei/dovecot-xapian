@@ -1,5 +1,5 @@
 # dovecot-xapian
-Docker image to run [dovecot](https://www.dovecot.org), redis is used for userdb/passdb lookups to reduce footprint.
+Dockerfile to run [dovecot](https://www.dovecot.org) as a container based on Alpine Linux, redis is used for userdb/passdb lookups to reduce footprint.
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/a16bitsysop/dovecot-xapian.svg?style=plastic)](https://hub.docker.com/r/a16bitsysop/dovecot-xapian/)
 [![Docker Stars](https://img.shields.io/docker/stars/a16bitsysop/dovecot-xapian.svg?style=plastic)](https://hub.docker.com/r/a16bitsysop/dovecot-xapian/)
