@@ -8,7 +8,7 @@ Dockerfile to run [dovecot](https://www.dovecot.org) as a container based on Alp
 
 It uses inet lmtp with ssl and auth, instead of sockets as running inside docker network so less dependencies.  For postfix to use lmtp with ssl it needs ```lmtp_use_tls = yes``` set in main.cf
 
-fts-xapian is used for full text search as it will replace fts-squat.
+`fts-xapian` is used for full text search as it was going to replace `fts-squat`.
 
 The default storage quota is 20GB per user, quota settings can be changed with userdb extra fields see [redis keys](#redis-keys).
 
