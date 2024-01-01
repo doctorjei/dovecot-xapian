@@ -25,8 +25,7 @@ RUN apk update \
 
 # if DAPK is not set bake file defaults it to alpine-base
 RUN echo "DAPK is: $DAPK" \
-&& apk list -q $DAPK | awk '{print $1}'> /etc/apkvers \
-&& cat /etc/apkvers
+&& apk list -q $DAPK | awk '{print $1}' | tee /etc/apkvers
 
 WORKDIR /usr/libexec/dovecot
 COPY --chmod=755 decode2text.sh ./
