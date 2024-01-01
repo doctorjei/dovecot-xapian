@@ -18,7 +18,6 @@ RUN apk update \
   unzip mupdf-tools \
 && mv /usr/bin/curl /var/vmail/sieve/bin/ \
 && rm -rf /etc/dovecot/conf.d/* \
-&& mkdir /etc/dropbear \
 && adduser -D -h /home/doveback doveback \
 && echo "doveback:$(openssl rand -base64 32)" | chpasswd \
 && echo "permit nopass doveback as root cmd doveadm" >> /etc/doas.conf
