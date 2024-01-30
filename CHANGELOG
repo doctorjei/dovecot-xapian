@@ -1,3 +1,6 @@
+30/01/24 rebuild for alpine 3.19.1
+
+
 * Push containers to GitLab container repo as well as docker hub
 * Fix permissions with chmod for copy in Dockerfile
 * Build for alpine 3.15.1
