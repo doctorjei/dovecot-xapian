@@ -11,7 +11,9 @@ if [ "$_pw1" != "$_pw2" ]; then
 fi
 
 _hash="$(doveadm pw -s ARGON2ID -p ${_pw1})"
-echo "Got hash: $_hash"
+echo "Got hash:"
+echo "$_hash"
+echo
 _hash=${_hash//\$/\\$}
 _escape='"{\"password\":\"'"$_hash"'\"}"'
 echo "Escaped Hash:"
