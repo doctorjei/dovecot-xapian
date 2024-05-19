@@ -34,7 +34,7 @@ COPY conf ./
 RUN find /var/vmail/sieve/global -name "*.sieve" -print -exec sievec {} \;
 
 WORKDIR /usr/local/bin
-COPY --chmod=755 container-scripts/set-timezone.sh container-scripts/health-nc.sh entrypoint.sh post-run.sh ./
+COPY --chmod=755 container-scripts/set-timezone.sh container-scripts/health-nc.sh entrypoint.sh post-run.sh escape-pw.sh ./
 CMD [ "entrypoint.sh" ]
 
 COPY --chmod=644 stunnel.conf /etc/stunnel/stunnel.conf
