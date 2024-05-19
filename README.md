@@ -44,6 +44,8 @@ An agron2id password hash can be created with ```doveadm pw -s argon2id```, all 
 the returned string need escaping with ```\``` before setting the redis key.  So change
 any ```$``` to ```\$```
 
+A hashed password can also be created with the `escape-pw.sh` script, which outputs an escaped password string that can be added to redis.
+
 Best used with ```POP3PORT``` to listen on a random port if port can be changed for
 fetching service.
 
