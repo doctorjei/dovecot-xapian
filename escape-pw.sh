@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/ash
 
 printf "Enter Password: "read -s _pw1
 printf "\nEnter Password Again: "
