@@ -72,7 +72,7 @@ if [ -n "$RSPAMD" ]; then
   done
 fi
 
-openssl dhparam 1024 >/etc/ssl/dh2048.pem
+openssl dhparam 2048 >/etc/ssl/dh2048.pem
 
 post-run.sh &
 
