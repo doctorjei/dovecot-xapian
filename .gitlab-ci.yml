@@ -9,6 +9,10 @@ include:
 
 - project: container-email/resources/gitlab-templates
   ref: main
+  file: get-info.yml
+
+- project: container-email/resources/gitlab-templates
+  ref: main
   file: docker-buildx.yml
 
 - project: container-email/resources/gitlab-templates
@@ -21,6 +25,7 @@ code_quality:
 
 stages:
 - lint
+- get_info
 - build
 - test
 - build_x_push

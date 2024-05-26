@@ -1,7 +1,6 @@
 ARG DVER=latest
 FROM docker.io/alpine:$DVER
 LABEL maintainer="Duncan Bellamy <dunk@denkimushi.com>"
-ARG DAPK
 ARG APKVER
 
 COPY --chmod=755 --chown=vmail:vmail sieve /var/vmail/sieve/global
@@ -21,10 +20,6 @@ RUN apk update \
 && adduser -D -h /home/doveback doveback \
 && echo "doveback:$(openssl rand -base64 32)" | chpasswd \
 && echo "permit nopass doveback as root cmd doveadm" >> /etc/doas.conf
-
-# if DAPK is not set bake file defaults it to alpine-base
-RUN echo "DAPK is: $DAPK" \
-&& apk list -q $DAPK | awk '{print $1}' | tee /etc/apkvers
 
 WORKDIR /usr/libexec/dovecot
 COPY --chmod=755 decode2text.sh ./
