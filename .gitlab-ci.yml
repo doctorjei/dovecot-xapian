@@ -19,6 +19,10 @@ include:
   ref: main
   file: badge-info.yml
 
+- project: container-email/resources/gitlab-templates
+  ref: main
+  file: release.yml
+
 code_quality:
   variables:
     DOCKER_TLS_CERTDIR: /certs
