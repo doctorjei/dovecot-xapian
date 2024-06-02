@@ -23,10 +23,6 @@ include:
   ref: main
   file: release.yml
 
-code_quality:
-  variables:
-    DOCKER_TLS_CERTDIR: /certs
-
 stages:
 - lint
 - get_info
