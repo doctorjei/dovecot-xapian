@@ -3,9 +3,14 @@ FROM docker.io/alpine:$DVER
 LABEL maintainer="Duncan Bellamy <dunk@denkimushi.com>"
 ARG APKVER
 
+ENV PUID=5000 \
+    PGID=5000 \
+    HOME=/var/vmail/mailboxes
+
 COPY --chmod=755 --chown=vmail:vmail sieve /var/vmail/sieve/global
-RUN addgroup -S -g 5000 vmail \
-&& adduser -S -u 5000 -h /var/vmail/mailboxes --gecos "virtual mailbox user" --ingroup vmail vmail \
+    
+RUN addgroup -S -g ${PGID} vmail \
+&& adduser -S -u ${PUID} -h ${HOME} --gecos "virtual mailbox user" --ingroup vmail vmail \
 && mkdir  /var/vmail/sieve/bin
 
 SHELL [ "/bin/ash", "-o", "pipefail", "-c" ]
@@ -35,6 +40,6 @@ CMD [ "entrypoint.sh" ]
 COPY --chmod=644 stunnel.conf /etc/stunnel/stunnel.conf
 
 EXPOSE 993 995 2221
-VOLUME [ "/var/lib/dovecot" "/var/vmail/mailboxes" ]
+VOLUME [ "/var/lib/dovecot" ${HOME} ]
 
 HEALTHCHECK --start-period=60s CMD health-nc.sh PING 5001 PONG || exit 1
